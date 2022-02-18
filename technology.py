@@ -1,10 +1,27 @@
 import turtle as t
 
-s7seg_img = ["7s0.gif","7s1.gif","7s2.gif","7s3.gif","7s4.gif","7s5.gif","7s6.gif","7s7.gif","7s8.gif","7s9.gif","7s10.gif"]
+s7seg_base = "7s10.gif"
+s7seg_led = ["7s-a.gif","7s-b.gif","7s-c.gif","7s-d.gif","7s-e.gif","7s-f.gif","7s-g.gif"]
+s7seg_num = [[1,1,1,1,1,1,0], #0
+             [0,1,1,0,0,0,0], #1
+             [1,1,0,1,1,0,1], #2
+             [1,1,1,1,0,0,1], #3
+             [0,1,1,0,0,1,1], #4
+             [1,0,1,1,0,1,1], #5
+             [1,0,1,1,1,1,1], #6
+             [1,1,1,0,0,0,0], #7
+             [1,1,1,1,1,1,1], #8
+             [1,1,1,1,0,1,1]  #9
+            ]
 
 def disp_num(k):
-    t.shape(s7seg_img[k])
+    t.shape(s7seg_base)
     t.stamp()
+    if k < 10:
+        for i in range(7):
+            if s7seg_num[k][i] == 1:
+                t.shape(s7seg_led[i])
+                t.stamp()
 
 def key_0():
     disp_num(0)
@@ -27,6 +44,7 @@ def key_8():
 def key_9():
     disp_num(9)
 def key_10():
+    t.clearstamps()
     disp_num(10)
 
 t.setup(400, 400)
@@ -34,21 +52,31 @@ s = t.Screen()
 t.hideturtle()
 t.speed(0)
 
-for i in range(11):
-    s.addshape(s7seg_img[i])
+s.addshape(s7seg_base)
+for i in range(7):
+    s.addshape(s7seg_led[i])
 
 disp_num(10)
 
-s.onkey(key_0, "0")
-s.onkey(key_1, "1")
-s.onkey(key_2, "2")
-s.onkey(key_3, "3")
-s.onkey(key_4, "4")
-s.onkey(key_5, "5")
-s.onkey(key_6, "6")
-s.onkey(key_7, "7")
-s.onkey(key_8, "8")
-s.onkey(key_9, "9")
-s.onkey(key_10, "r")
+s.onkeypress(key_0, "0")
+s.onkeypress(key_1, "1")
+s.onkeypress(key_2, "2")
+s.onkeypress(key_3, "3")
+s.onkeypress(key_4, "4")
+s.onkeypress(key_5, "5")
+s.onkeypress(key_6, "6")
+s.onkeypress(key_7, "7")
+s.onkeypress(key_8, "8")
+s.onkeypress(key_9, "9")
+s.onkeyrelease(key_10, "0")
+s.onkeyrelease(key_10, "1")
+s.onkeyrelease(key_10, "2")
+s.onkeyrelease(key_10, "3")
+s.onkeyrelease(key_10, "4")
+s.onkeyrelease(key_10, "5")
+s.onkeyrelease(key_10, "6")
+s.onkeyrelease(key_10, "7")
+s.onkeyrelease(key_10, "8")
+s.onkeyrelease(key_10, "9")
 s.listen()
 t.mainloop() # IDE에서 실행하자마자 터틀 스크린이 꺼짐
